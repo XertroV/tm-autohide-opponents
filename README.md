@@ -1,6 +1,6 @@
-# Autohide Opponents
+# Auto-hide Opponents
 
-Autohide opponents/ghosts in various TM game modes.
+Auto-hide opponents/ghosts in various TM game modes.
 
 This plugin uses `Dev::` calls, and will be manually checked each game update for compatibility.
 
