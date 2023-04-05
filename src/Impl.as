@@ -53,6 +53,7 @@ OpponentsVisibility GetOpponentsVisibility() {
 
 void SetOpponentsVisibility(OpponentsVisibility v) {
     if (!GameVersionSafe) throw("Call to unsafe dev method");
+    trace('setting opponents visibility: ' + tostring(v));
     Dev::SetOffset(GetSpecialUserProfileWrapper(GetApp()), 0x98, uint(v));
 }
 
@@ -62,7 +63,6 @@ bool GameModeActive = false;
 void OnUiSeqChange(CGamePlaygroundUIConfig::EUISequence seq) {
     if (!GameVersionSafe) return;
     if (!GameModeActive) return;
-    trace('setting opponents visibility');
     bool isPlaying = seq == CGamePlaygroundUIConfig::EUISequence::Playing;
     if (isPlaying) {
         SetOpponentsVisibility(S_WhenRacing);

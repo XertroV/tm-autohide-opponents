@@ -1,7 +1,9 @@
 bool GameVersionSafe = false;
-const string LatestGameVersionDuringDev = "2023-03-28_19_52";
+const string[] KnownSafeVersions = {"2023-03-28_19_52", "2023-03-31_13_17"};
+string LocalUsersLogin = GetLocalLogin();
 
 void Main() {
+    startnew(CacheLocalLoginWhenAvailable);
     EnsureGameVersionCompatibility();
     if (!GameVersionSafe) {
         WarnBadGameVersion();
@@ -14,9 +16,8 @@ void Main() {
 string TmGameVersion = "";
 void EnsureGameVersionCompatibility() {
     TmGameVersion = GetApp().SystemPlatform.ExeVersion;
-    GameVersionSafe = TmGameVersion == LatestGameVersionDuringDev;
+    GameVersionSafe = KnownSafeVersions.Find(TmGameVersion) > -1;
     if (GameVersionSafe) return;
-    // todo: get config from openplanet
     GameVersionSafe = GetStatusFromOpenplanet();
 }
 
@@ -24,6 +25,16 @@ void WarnBadGameVersion() {
     NotifyWarning("Game version ("+TmGameVersion+") not marked as compatible with this version of the plugin -- will be inactive!\n\nChecking new versions is a manual process and avoids crashing your game after an update.");
 }
 
+void CacheLocalLoginWhenAvailable() {
+    auto start = Time::Now;
+    while (true) {
+        sleep(100);
+        LocalUsersLogin = GetLocalLogin();
+        if (LocalUsersLogin.Length > 10) break;
+    }
+    // took about 2.5s at startup
+    // print("Got local user login after: " + Time::Format(Time::Now - start));
+}
 
 void Notify(const string &in msg) {
     UI::ShowNotification(Meta::ExecutingPlugin().Name, msg);

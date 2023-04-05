@@ -24,8 +24,12 @@ void WatchForGameModeChanges() {
             continue;
         }
         if (app.CurrentPlayground.UIConfigs.Length == 0) continue;
-        if (lastUiSeq != app.CurrentPlayground.UIConfigs[0].UISequence) {
-            lastUiSeq = app.CurrentPlayground.UIConfigs[0].UISequence;
+        CSmPlayer@ player = VehicleState::GetViewingPlayer();
+        auto currSeq = (player is null || player.ScriptAPI.Login != LocalUsersLogin)
+                ? CGamePlaygroundUIConfig::EUISequence::None
+                : app.CurrentPlayground.UIConfigs[0].UISequence;
+        if (lastUiSeq != currSeq) {
+            lastUiSeq = currSeq;
             OnUiSeqChange(lastUiSeq);
         }
     }
