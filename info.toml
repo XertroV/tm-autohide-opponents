@@ -2,7 +2,7 @@
 name     = "Auto-hide Opponents"
 author   = "XertroV"
 category = "Race"
-version  = "0.1.0"
+version  = "0.1.1"
 
 [game]
 min_version = "2023-03-28"
