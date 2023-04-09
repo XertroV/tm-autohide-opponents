@@ -1,5 +1,5 @@
 string lastGM;
-void WatchForUiSeqChanges() {
+void WatchForGameModeChanges() {
     auto net = cast<CTrackManiaNetwork>(GetApp().Network);
     while (GameVersionSafe) {
         yield();
@@ -12,7 +12,7 @@ void WatchForUiSeqChanges() {
 }
 
 CGamePlaygroundUIConfig::EUISequence lastUiSeq = CGamePlaygroundUIConfig::EUISequence::None;
-void WatchForGameModeChanges() {
+void WatchForUiSeqChanges() {
     auto app = cast<CGameManiaPlanet>(GetApp());
     while (GameVersionSafe) {
         yield();
@@ -33,4 +33,8 @@ void WatchForGameModeChanges() {
             OnUiSeqChange(lastUiSeq);
         }
     }
+}
+
+void TriggerRecheck() {
+    OnUiSeqChange(lastUiSeq);
 }

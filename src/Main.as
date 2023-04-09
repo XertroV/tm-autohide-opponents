@@ -2,6 +2,13 @@ bool GameVersionSafe = false;
 const string[] KnownSafeVersions = {"2023-03-28_19_52", "2023-03-31_13_17"};
 string LocalUsersLogin = GetLocalLogin();
 
+/**
+ * New version checklist:
+ * - Update KnownSafeVersions
+ * - Update JSON config on site
+ * - Update info toml min version
+ */
+
 void Main() {
     startnew(CacheLocalLoginWhenAvailable);
     EnsureGameVersionCompatibility();
@@ -11,6 +18,10 @@ void Main() {
     }
     startnew(WatchForUiSeqChanges);
     startnew(WatchForGameModeChanges);
+    if (!S_ShownInitSettings) {
+        // S_ShownInitSettings = true;
+        ShowWindow = true;
+    }
 }
 
 string TmGameVersion = "";
@@ -51,12 +62,18 @@ void NotifyWarning(const string &in msg) {
     UI::ShowNotification(Meta::ExecutingPlugin().Name + ": Warning", msg, vec4(.9, .6, .2, .3), 15000);
 }
 
+/** Called when a setting in the settings panel was changed.
+*/
+void OnSettingsChanged() {
+    startnew(TriggerRecheck);
+}
+
 const string PluginIcon = Icons::EyeSlash;
 const string MenuTitle = "\\$3ff" + PluginIcon + "\\$z " + Meta::ExecutingPlugin().Name;
 
-// // show the window immediately upon installation
-// [Setting hidden]
-// bool ShowWindow = true;
+// show the window immediately upon installation
+[Setting hidden]
+bool ShowWindow = true;
 
 // /** Render function called every frame intended only for menu items in `UI`. */
 // void RenderMenu() {
@@ -64,3 +81,16 @@ const string MenuTitle = "\\$3ff" + PluginIcon + "\\$z " + Meta::ExecutingPlugin
 //         ShowWindow = !ShowWindow;
 //     }
 // }
+
+/** Render function called every frame.
+*/
+void Render() {
+    if (!ShowWindow) return;
+    // if (!S_ShownInitSettings)
+    if (UI::Begin(MenuTitle, ShowWindow)) {
+        UI::Text("Settings");
+        UI::Separator();
+        Render_GeneralSettings();
+    }
+    UI::End();
+}
