@@ -19,7 +19,7 @@ void Main() {
     startnew(WatchForUiSeqChanges);
     startnew(WatchForGameModeChanges);
     if (!S_ShownInitSettings) {
-        // S_ShownInitSettings = true;
+        S_ShownInitSettings = true;
         ShowWindow = true;
     }
 }
@@ -71,7 +71,6 @@ void OnSettingsChanged() {
 const string PluginIcon = Icons::EyeSlash;
 const string MenuTitle = "\\$3ff" + PluginIcon + "\\$z " + Meta::ExecutingPlugin().Name;
 
-// show the window immediately upon installation
 [Setting hidden]
 bool ShowWindow = false;
 
