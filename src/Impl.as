@@ -124,7 +124,6 @@ void SetNameTagsVisibility(bool v) {
 // 0x40 -- duplicate value, appears just to be a copy of 0x3c
 
 bool GetUIVisibility() {
-    // todo: when pointer is null, use special user profile?
     if (!GameVersionSafe) throw("Call to unsafe dev method");
     auto interfaceUi = GetSpecialInterfaceUI(GetApp());
     if (interfaceUi !is null) {
@@ -142,13 +141,11 @@ void SetUIVisibility(bool v) {
         // Dev::SetOffset(interfaceUi, UIVisOffset + 0x4, uint(v ? 1 : 0));
     }
     // also need to check a UI element for this to work for spectating
-    if (v) {
-        auto cp = GetApp().CurrentPlayground;
-        if (cp !is null) {
-            try {
-                cp.Interface.InterfaceRoot.Childs[2].IsVisible = true;
-            } catch {}
-        }
+    auto cp = GetApp().CurrentPlayground;
+    if (v && cp !is null) {
+        try {
+            cp.Interface.InterfaceRoot.Childs[2].IsVisible = true;
+        } catch {}
     }
 }
 

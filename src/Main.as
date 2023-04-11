@@ -73,7 +73,7 @@ const string MenuTitle = "\\$3ff" + PluginIcon + "\\$z " + Meta::ExecutingPlugin
 
 // show the window immediately upon installation
 [Setting hidden]
-bool ShowWindow = true;
+bool ShowWindow = false;
 
 // /** Render function called every frame intended only for menu items in `UI`. */
 // void RenderMenu() {
@@ -84,9 +84,10 @@ bool ShowWindow = true;
 
 /** Render function called every frame.
 */
-void Render() {
+void RenderInterface() {
     if (!ShowWindow) return;
     // if (!S_ShownInitSettings)
+    UI::SetNextWindowSize(860, 500, UI::Cond::Appearing);
     if (UI::Begin(MenuTitle, ShowWindow)) {
         UI::Text("Settings");
         UI::Separator();

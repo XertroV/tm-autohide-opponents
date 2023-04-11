@@ -155,6 +155,12 @@ S_Bool S_Other_Specing_UIVis = S_Bool::Do_Nothing;
 
 [SettingsTab name="General" order="1"]
 void Render_GeneralSettings() {
+    if (!ShowWindow) {
+        if (UI::Button("Open Settings Window")) {
+            ShowWindow = true;
+        }
+    }
+
     if (UI::BeginTable("genset", 6, UI::TableFlags::SizingStretchSame)) {
         UI::TableSetupColumn("Mode");
         UI::TableSetupColumn("When");
@@ -171,7 +177,7 @@ void Render_GeneralSettings() {
         S_CotdKo_Racing_Ghosts = S_ComboGhosts(S_CotdKo_Racing_Ghosts, "S_CotdKo_Racing_Ghosts");
         S_CotdKo_Racing_NameTags = S_ComboNameTags(S_CotdKo_Racing_NameTags, "S_CotdKo_Racing_NameTags");
         S_CotdKo_Racing_UIVis = S_ComboUIVis(S_CotdKo_Racing_UIVis, "S_CotdKo_Racing_UIVis");
-        S_SecondWhen();
+        if (S_SecondWhen()) { Reset_S_CotdKo(); }
         S_CotdKo_Specing_Opponents = S_ComboOpponents(S_CotdKo_Specing_Opponents, "S_CotdKo_Specing_Opponents");
         S_CotdKo_Specing_Ghosts = S_ComboGhosts(S_CotdKo_Specing_Ghosts, "S_CotdKo_Specing_Ghosts");
         S_CotdKo_Specing_NameTags = S_ComboNameTags(S_CotdKo_Specing_NameTags, "S_CotdKo_Specing_NameTags");
@@ -184,7 +190,7 @@ void Render_GeneralSettings() {
         S_MM_Racing_Ghosts = S_ComboGhosts(S_MM_Racing_Ghosts, "S_MM_Racing_Ghosts");
         S_MM_Racing_NameTags = S_ComboNameTags(S_MM_Racing_NameTags, "S_MM_Racing_NameTags");
         S_MM_Racing_UIVis = S_ComboUIVis(S_MM_Racing_UIVis, "S_MM_Racing_UIVis");
-        S_SecondWhen();
+        if (S_SecondWhen()) { Reset_S_MM(); }
         S_MM_Specing_Opponents = S_ComboOpponents(S_MM_Specing_Opponents, "S_MM_Specing_Opponents");
         S_MM_Specing_Ghosts = S_ComboGhosts(S_MM_Specing_Ghosts, "S_MM_Specing_Ghosts");
         S_MM_Specing_NameTags = S_ComboNameTags(S_MM_Specing_NameTags, "S_MM_Specing_NameTags");
@@ -197,7 +203,7 @@ void Render_GeneralSettings() {
         S_TA_Racing_Ghosts = S_ComboGhosts(S_TA_Racing_Ghosts, "S_TA_Racing_Ghosts");
         S_TA_Racing_NameTags = S_ComboNameTags(S_TA_Racing_NameTags, "S_TA_Racing_NameTags");
         S_TA_Racing_UIVis = S_ComboUIVis(S_TA_Racing_UIVis, "S_TA_Racing_UIVis");
-        S_SecondWhen();
+        if (S_SecondWhen()) { Reset_S_TA(); }
         S_TA_Specing_Opponents = S_ComboOpponents(S_TA_Specing_Opponents, "S_TA_Specing_Opponents");
         S_TA_Specing_Ghosts = S_ComboGhosts(S_TA_Specing_Ghosts, "S_TA_Specing_Ghosts");
         S_TA_Specing_NameTags = S_ComboNameTags(S_TA_Specing_NameTags, "S_TA_Specing_NameTags");
@@ -210,7 +216,7 @@ void Render_GeneralSettings() {
         S_Cup_Racing_Ghosts = S_ComboGhosts(S_Cup_Racing_Ghosts, "S_Cup_Racing_Ghosts");
         S_Cup_Racing_NameTags = S_ComboNameTags(S_Cup_Racing_NameTags, "S_Cup_Racing_NameTags");
         S_Cup_Racing_UIVis = S_ComboUIVis(S_Cup_Racing_UIVis, "S_Cup_Racing_UIVis");
-        S_SecondWhen();
+        if (S_SecondWhen()) { Reset_S_Cup(); }
         S_Cup_Specing_Opponents = S_ComboOpponents(S_Cup_Specing_Opponents, "S_Cup_Specing_Opponents");
         S_Cup_Specing_Ghosts = S_ComboGhosts(S_Cup_Specing_Ghosts, "S_Cup_Specing_Ghosts");
         S_Cup_Specing_NameTags = S_ComboNameTags(S_Cup_Specing_NameTags, "S_Cup_Specing_NameTags");
@@ -223,7 +229,7 @@ void Render_GeneralSettings() {
         S_Solo_Racing_Ghosts = S_ComboGhosts(S_Solo_Racing_Ghosts, "S_Solo_Racing_Ghosts");
         S_Solo_Racing_NameTags = S_ComboNameTags(S_Solo_Racing_NameTags, "S_Solo_Racing_NameTags");
         S_Solo_Racing_UIVis = S_ComboUIVis(S_Solo_Racing_UIVis, "S_Solo_Racing_UIVis");
-        S_SecondWhen();
+        if (S_SecondWhen()) { Reset_S_Solo(); }
         S_Solo_Specing_Opponents = S_ComboOpponents(S_Solo_Specing_Opponents, "S_Solo_Specing_Opponents");
         S_Solo_Specing_Ghosts = S_ComboGhosts(S_Solo_Specing_Ghosts, "S_Solo_Specing_Ghosts");
         S_Solo_Specing_NameTags = S_ComboNameTags(S_Solo_Specing_NameTags, "S_Solo_Specing_NameTags");
@@ -236,7 +242,7 @@ void Render_GeneralSettings() {
         S_Other_Racing_Ghosts = S_ComboGhosts(S_Other_Racing_Ghosts, "S_Other_Racing_Ghosts");
         S_Other_Racing_NameTags = S_ComboNameTags(S_Other_Racing_NameTags, "S_Other_Racing_NameTags");
         S_Other_Racing_UIVis = S_ComboUIVis(S_Other_Racing_UIVis, "S_Other_Racing_UIVis");
-        S_SecondWhen();
+        if (S_SecondWhen()) { Reset_S_Other(); }
         S_Other_Specing_Opponents = S_ComboOpponents(S_Other_Specing_Opponents, "S_Other_Specing_Opponents");
         S_Other_Specing_Ghosts = S_ComboGhosts(S_Other_Specing_Ghosts, "S_Other_Specing_Ghosts");
         S_Other_Specing_NameTags = S_ComboNameTags(S_Other_Specing_NameTags, "S_Other_Specing_NameTags");
@@ -260,12 +266,14 @@ void S_StartWhen() {
     UI::Text("Racing:");
 }
 
-void S_SecondWhen() {
+bool S_SecondWhen() {
     UI::TableNextRow();
     UI::TableNextColumn();
+    bool ret = UI::Button("Reset");
     UI::TableNextColumn();
     UI::AlignTextToFramePadding();
     UI::Text("Specing:");
+    return ret;
 }
 
 void S_EndMode() {
@@ -339,6 +347,74 @@ S_Bool S_ComboUIVis(S_Bool v, const string &in id) {
     }
     return ret;
 }
+
+void Reset_S_CotdKo() {
+    S_CotdKo_Racing_Opponents = S_Opponents::Do_Nothing;
+    S_CotdKo_Racing_Ghosts = S_Bool::Do_Nothing;
+    S_CotdKo_Racing_NameTags = S_Bool::Do_Nothing;
+    S_CotdKo_Racing_UIVis = S_Bool::Do_Nothing;
+    S_CotdKo_Specing_Opponents = S_Opponents::Do_Nothing;
+    S_CotdKo_Specing_Ghosts = S_Bool::Do_Nothing;
+    S_CotdKo_Specing_NameTags = S_Bool::Do_Nothing;
+    S_CotdKo_Specing_UIVis = S_Bool::Do_Nothing;
+}
+
+void Reset_S_MM() {
+    S_MM_Racing_Opponents = S_Opponents::Do_Nothing;
+    S_MM_Racing_Ghosts = S_Bool::Do_Nothing;
+    S_MM_Racing_NameTags = S_Bool::Do_Nothing;
+    S_MM_Racing_UIVis = S_Bool::Do_Nothing;
+    S_MM_Specing_Opponents = S_Opponents::Do_Nothing;
+    S_MM_Specing_Ghosts = S_Bool::Do_Nothing;
+    S_MM_Specing_NameTags = S_Bool::Do_Nothing;
+    S_MM_Specing_UIVis = S_Bool::Do_Nothing;
+}
+
+void Reset_S_TA() {
+    S_TA_Racing_Opponents = S_Opponents::Do_Nothing;
+    S_TA_Racing_Ghosts = S_Bool::Do_Nothing;
+    S_TA_Racing_NameTags = S_Bool::Do_Nothing;
+    S_TA_Racing_UIVis = S_Bool::Do_Nothing;
+    S_TA_Specing_Opponents = S_Opponents::Do_Nothing;
+    S_TA_Specing_Ghosts = S_Bool::Do_Nothing;
+    S_TA_Specing_NameTags = S_Bool::Do_Nothing;
+    S_TA_Specing_UIVis = S_Bool::Do_Nothing;
+}
+
+void Reset_S_Cup() {
+    S_Cup_Racing_Opponents = S_Opponents::Do_Nothing;
+    S_Cup_Racing_Ghosts = S_Bool::Do_Nothing;
+    S_Cup_Racing_NameTags = S_Bool::Do_Nothing;
+    S_Cup_Racing_UIVis = S_Bool::Do_Nothing;
+    S_Cup_Specing_Opponents = S_Opponents::Do_Nothing;
+    S_Cup_Specing_Ghosts = S_Bool::Do_Nothing;
+    S_Cup_Specing_NameTags = S_Bool::Do_Nothing;
+    S_Cup_Specing_UIVis = S_Bool::Do_Nothing;
+}
+
+void Reset_S_Solo() {
+    S_Solo_Racing_Opponents = S_Opponents::Do_Nothing;
+    S_Solo_Racing_Ghosts = S_Bool::Do_Nothing;
+    S_Solo_Racing_NameTags = S_Bool::Do_Nothing;
+    S_Solo_Racing_UIVis = S_Bool::Do_Nothing;
+    S_Solo_Specing_Opponents = S_Opponents::Do_Nothing;
+    S_Solo_Specing_Ghosts = S_Bool::Do_Nothing;
+    S_Solo_Specing_NameTags = S_Bool::Do_Nothing;
+    S_Solo_Specing_UIVis = S_Bool::Do_Nothing;
+}
+
+void Reset_S_Other() {
+    S_Other_Racing_Opponents = S_Opponents::Do_Nothing;
+    S_Other_Racing_Ghosts = S_Bool::Do_Nothing;
+    S_Other_Racing_NameTags = S_Bool::Do_Nothing;
+    S_Other_Racing_UIVis = S_Bool::Do_Nothing;
+    S_Other_Specing_Opponents = S_Opponents::Do_Nothing;
+    S_Other_Specing_Ghosts = S_Bool::Do_Nothing;
+    S_Other_Specing_NameTags = S_Bool::Do_Nothing;
+    S_Other_Specing_UIVis = S_Bool::Do_Nothing;
+}
+
+
 
 [SettingsTab name="Current Visibility" order="10"]
 void Render_CurrentVis() {
