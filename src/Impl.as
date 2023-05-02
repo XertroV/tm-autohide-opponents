@@ -2,6 +2,7 @@
  * offsets for special user profile and user profile wrapper
  *
  * 2023-03-28: {rootMapM.Offset + 0x48, 0, 0x20, 0xA8}, {.., .., 0x18, 0x98}
+ * 2023-04-28: {rootMapM.Offset + 0x48, 0, 0x28, 0xA8}, {.., .., 0x30, 0x98}
  *
  * For special interface UI
  *
@@ -20,13 +21,18 @@ uint UIVisOffset = 0x3c;
 uint UIVisKeyOffset = 0x1c;
 
 
+// updated 2024-04-28: +0x8 to both.
+uint SpecialUserProfileWrapperOffset = 0x20;
+uint SpecialUserProfileOffset = 0x28;
+
+
 CGameUserProfile@ GetSpecialUserProfile(CGameCtnApp@ app) {
     if (!GameVersionSafe) throw("Call to unsafe dev method");
     auto appTy = Reflection::GetType("CTrackMania");
     auto rootMapM = appTy.GetMember("RootMap");
     // orig 0x3a0 = 0x358 + 0x48
     auto off1 = rootMapM.Offset + 0x48;
-    int[] offsets = {off1, 0, 0x20, GhostVisOffset};
+    int[] offsets = {off1, 0, SpecialUserProfileOffset, GhostVisOffset};
     auto fakeNod1 = Dev::GetOffsetNod(app, offsets[0]);
     auto fakeNod2 = Dev::GetOffsetNod(fakeNod1, offsets[1]);
     auto nod3 = Dev::GetOffsetNod(fakeNod2, offsets[2]);
@@ -39,7 +45,7 @@ CGameUserProfileWrapper@ GetSpecialUserProfileWrapper(CGameCtnApp@ app) {
     auto rootMapM = appTy.GetMember("RootMap");
     // orig 0x3a0
     auto off1 = rootMapM.Offset + 0x48;
-    int[] offsets = {off1, 0, 0x18, OpponentVisOffset};
+    int[] offsets = {off1, 0, SpecialUserProfileWrapperOffset, OpponentVisOffset};
     auto fakeNod1 = Dev::GetOffsetNod(app, offsets[0]);
     auto fakeNod2 = Dev::GetOffsetNod(fakeNod1, offsets[1]);
     auto nod3 = Dev::GetOffsetNod(fakeNod2, offsets[2]);
