@@ -2,7 +2,7 @@
  * offsets for special user profile and user profile wrapper
  *
  * 2023-03-28: {rootMapM.Offset + 0x48, 0, 0x20, 0xA8}, {.., .., 0x18, 0x98}
- * 2023-04-28: {rootMapM.Offset + 0x48, 0, 0x28, 0xA8}, {.., .., 0x30, 0x98}
+ * 2023-04-28: {rootMapM.Offset + 0x48, 0, 0x28, 0xA8}, {.., .., 0x20, 0x98}
  *
  * For special interface UI
  *
