@@ -146,11 +146,11 @@ void SetUIVisibility(bool v) {
         Dev::SetOffset(interfaceUi, UIVisOffset, uint(v ? 1 : 0));
         // Dev::SetOffset(interfaceUi, UIVisOffset + 0x4, uint(v ? 1 : 0));
     }
-    // also need to check a UI element for this to work for spectating
+    // also need to modify a UI element for this to work for spectating
     auto cp = GetApp().CurrentPlayground;
-    if (v && cp !is null) {
+    if (cp !is null) {
         try {
-            cp.Interface.InterfaceRoot.Childs[2].IsVisible = true;
+            cp.Interface.InterfaceRoot.Childs[2].IsVisible = v;
         } catch {}
     }
 }

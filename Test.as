@@ -3,7 +3,6 @@
 Meta::PluginCoroutine@ tests = startnew(RunTests);
 
 void RunTests() {
-
 }
 
 
