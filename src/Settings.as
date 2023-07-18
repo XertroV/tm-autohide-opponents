@@ -414,6 +414,46 @@ void Reset_S_Other() {
     S_Other_Specing_UIVis = S_Bool::Do_Nothing;
 }
 
+[Setting hidden]
+bool S_RenderOSD = false;
+
+[Setting hidden]
+bool S_RenderOSD_HudOff = false;
+
+[Setting hidden]
+bool S_RenderOSD_Opponents = true;
+
+[Setting hidden]
+bool S_RenderOSD_Ghosts = true;
+
+[Setting hidden]
+vec2 S_OSD_PositionPct = vec2(3., 5.);
+
+[Setting hidden]
+float S_OSD_SizePct = 2.0;
+
+[Setting hidden]
+vec4 S_OSD_Color = vec4(1);
+
+[SettingsTab name="On-Screen Display" order="5"]
+void Render_OSD() {
+    S_RenderOSD = UI::Checkbox("Show on-screen display (OSD)", S_RenderOSD);
+    UI::TextWrapped("The OSD will show the status of Opponents or Ghosts or both.");
+
+    UI::Separator();
+    UI::BeginDisabled(!S_RenderOSD);
+
+    S_RenderOSD_HudOff = UI::Checkbox("OSD: Show when HUD off", S_RenderOSD_HudOff);
+
+    S_RenderOSD_Ghosts = UI::Checkbox("OSD: Show Ghosts Visibility Status", S_RenderOSD_Ghosts);
+    S_RenderOSD_Opponents = UI::Checkbox("OSD: Show Opponents Visibility Status", S_RenderOSD_Opponents);
+
+    S_OSD_PositionPct = UI::SliderFloat2("Screen Position (%)", S_OSD_PositionPct, 0, 100, "%.1f");
+    S_OSD_SizePct = UI::SliderFloat("Font Size (% of screen)", S_OSD_SizePct, 0, 50, "%.1f");
+    S_OSD_Color = UI::InputColor4("Text Color", S_OSD_Color);
+
+    UI::EndDisabled();
+}
 
 
 [SettingsTab name="Current Visibility" order="10"]

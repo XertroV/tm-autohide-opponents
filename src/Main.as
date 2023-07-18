@@ -94,3 +94,9 @@ void RenderInterface() {
     }
     UI::End();
 }
+
+/** Render function called every frame.
+*/
+void Render() {
+    RenderNvg();
+}
