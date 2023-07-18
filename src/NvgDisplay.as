@@ -7,6 +7,9 @@ void RenderNvg() {
 
 
 void RenderNvgOSD() {
+    // don't draw if we're not in a playground
+    if (GetApp().CurrentPlayground is null) return;
+
     if (!S_RenderOSD_HudOff && !UI::IsGameUIVisible()) return;
 
     vec2 screen = vec2(Draw::GetWidth(), Draw::GetHeight());
