@@ -549,3 +549,16 @@ class VisConfig {
         }
     }
 }
+
+[SettingsTab name="Game version compatibility" order="15"]
+void Render_GameVersionCompatSettings() {
+    if (GameVersionSafe) {
+        UI::Text("Game version is compatible.");
+        return;
+    }
+
+    if (UI::Button("Override game version compatibility check")) {
+        GameVersionSafe = true;
+    }
+    UI::TextWrapped("\\$f80Warning! If the new game version is incompatible, this could crash the game.");
+}

@@ -1,6 +1,7 @@
 auto nvgFont = nvg::LoadFont("DroidSans.ttf");
 
 void RenderNvg() {
+    if (!GameVersionSafe) return;
     if (S_RenderOSD) RenderNvgOSD();
 }
 

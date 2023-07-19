@@ -1,5 +1,8 @@
 bool GameVersionSafe = false;
-const string[] KnownSafeVersions = {"2023-04-28_17_34", "2023-05-05_21_05", "2023-06-23_16_27"};
+const string[] KnownSafeVersions = {
+    "2023-04-28_17_34", "2023-05-05_21_05", "2023-06-23_16_27",
+    "2023-07-10_19_57"
+    };
 string LocalUsersLogin = GetLocalLogin();
 
 /**
@@ -14,8 +17,10 @@ void Main() {
     EnsureGameVersionCompatibility();
     if (!GameVersionSafe) {
         WarnBadGameVersion();
-        return;
     }
+    // yield here so it can be overridden in settings
+    while (!GameVersionSafe) yield();
+    // main stuff
     startnew(WatchForUiSeqChanges);
     startnew(WatchForGameModeChanges);
     if (!S_ShownInitSettings) {
