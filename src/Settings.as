@@ -465,31 +465,32 @@ void Render_CurrentVis() {
     UI::Text("Curr Mode: " + tostring(g_Mode));
     UI::Text("Curr UI Seq: " + tostring(lastUiSeq));
 
+    // todo: offset changed
     UI::AlignTextToFramePadding();
-    UI::Text("Opponent Visibility: " + tostring(GetOpponentsVisibility()));
-    UI::SameLine();
     if (UI::Button("Toggle##GetOpponentsVisibility")) {
         SetOpponentsVisibility(OpponentsVisibility((GetOpponentsVisibility() + 1) % 3));
     }
+    UI::SameLine();
+    UI::Text("Opponent Visibility: " + tostring(GetOpponentsVisibility()));
 
     UI::AlignTextToFramePadding();
-    UI::Text("Ghosts Visibile: " + tostring(GetGhostVisibility()));
-    UI::SameLine();
     if (UI::Button("Toggle##GetGhostVisibility")) {
         SetGhostVisibility(!GetGhostVisibility());
     }
-    UI::AlignTextToFramePadding();
-    UI::Text("Name Tags Visibile: " + tostring(GetNameTagsVisibility()));
     UI::SameLine();
+    UI::Text("Ghosts Visibile: " + tostring(GetGhostVisibility()));
+    UI::AlignTextToFramePadding();
     if (UI::Button("Toggle##GetNameTagsVisibility")) {
         SetNameTagsVisibility(!GetNameTagsVisibility());
     }
-    UI::AlignTextToFramePadding();
-    UI::Text("UI Visibile: " + tostring(GetUIVisibility()));
     UI::SameLine();
+    UI::Text("Name Tags Visibile: " + tostring(GetNameTagsVisibility()));
+    UI::AlignTextToFramePadding();
     if (UI::Button("Toggle##GetUIVisibility")) {
         SetUIVisibility(!GetUIVisibility());
     }
+    UI::SameLine();
+    UI::Text("UI Visibile: " + tostring(GetUIVisibility()));
 }
 
 

@@ -14,7 +14,7 @@
 uint GhostVisOffset = 0xA8;
 uint SecondaryNameTagVisOffset = 0xC4;
 // user profile wrapper
-uint OpponentVisOffset = 0x98;
+uint OpponentVisOffset = 0xA8; // updated 2022-11-21
 // interface UI
 uint NameTagVisOffset = 0x28;
 uint UIVisOffset = 0x3c;
@@ -27,29 +27,37 @@ uint SpecialUserProfileOffset = 0x28;
 
 
 CGameUserProfile@ GetSpecialUserProfile(CGameCtnApp@ app) {
-    if (!GameVersionSafe) throw("Call to unsafe dev method");
-    auto appTy = Reflection::GetType("CTrackMania");
-    auto rootMapM = appTy.GetMember("RootMap");
-    // orig 0x3a0 = 0x358 + 0x48
-    auto off1 = rootMapM.Offset + 0x48;
-    int[] offsets = {off1, 0, SpecialUserProfileOffset, GhostVisOffset};
-    auto fakeNod1 = Dev::GetOffsetNod(app, offsets[0]);
-    auto fakeNod2 = Dev::GetOffsetNod(fakeNod1, offsets[1]);
-    auto nod3 = Dev::GetOffsetNod(fakeNod2, offsets[2]);
-    return cast<CGameUserProfile>(nod3);
+    try {
+        return GetSpecialUserProfileWrapper(app).ProfileNew;
+    } catch {}
+    return null;
+    // if (!GameVersionSafe) throw("Call to unsafe dev method");
+    // auto appTy = Reflection::GetType("CTrackMania");
+    // auto rootMapM = appTy.GetMember("RootMap");
+    // // orig 0x3a0 = 0x358 + 0x48
+    // auto off1 = rootMapM.Offset + 0x48;
+    // int[] offsets = {off1, 0, SpecialUserProfileOffset, GhostVisOffset};
+    // auto fakeNod1 = Dev::GetOffsetNod(app, offsets[0]);
+    // auto fakeNod2 = Dev::GetOffsetNod(fakeNod1, offsets[1]);
+    // auto nod3 = Dev::GetOffsetNod(fakeNod2, offsets[2]);
+    // return cast<CGameUserProfile>(nod3);
 }
 
 CGameUserProfileWrapper@ GetSpecialUserProfileWrapper(CGameCtnApp@ app) {
-    if (!GameVersionSafe) throw("Call to unsafe dev method");
-    auto appTy = Reflection::GetType("CTrackMania");
-    auto rootMapM = appTy.GetMember("RootMap");
-    // orig 0x3a0
-    auto off1 = rootMapM.Offset + 0x48;
-    int[] offsets = {off1, 0, SpecialUserProfileWrapperOffset, OpponentVisOffset};
-    auto fakeNod1 = Dev::GetOffsetNod(app, offsets[0]);
-    auto fakeNod2 = Dev::GetOffsetNod(fakeNod1, offsets[1]);
-    auto nod3 = Dev::GetOffsetNod(fakeNod2, offsets[2]);
-    return cast<CGameUserProfileWrapper>(nod3);
+    try {
+        return cast<CGameManiaPlanet>(GetApp()).ManiaPlanetScriptAPI.UserMgr.Users[0].Config;
+    } catch {}
+    return null;
+    // if (!GameVersionSafe) throw("Call to unsafe dev method");
+    // auto appTy = Reflection::GetType("CTrackMania");
+    // auto rootMapM = appTy.GetMember("RootMap");
+    // // orig 0x3a0
+    // auto off1 = rootMapM.Offset + 0x48;
+    // int[] offsets = {off1, 0, SpecialUserProfileWrapperOffset, OpponentVisOffset};
+    // auto fakeNod1 = Dev::GetOffsetNod(app, offsets[0]);
+    // auto fakeNod2 = Dev::GetOffsetNod(fakeNod1, offsets[1]);
+    // auto nod3 = Dev::GetOffsetNod(fakeNod2, offsets[2]);
+    // return cast<CGameUserProfileWrapper>(nod3);
 }
 
 CSmArenaInterfaceUI@ GetSpecialInterfaceUI(CGameCtnApp@ app) {
@@ -84,13 +92,15 @@ void SetSecNameTagsVisibility(bool v) {
 
 OpponentsVisibility GetOpponentsVisibility() {
     if (!GameVersionSafe) throw("Call to unsafe dev method");
-    return OpponentsVisibility(Dev::GetOffsetUint32(GetSpecialUserProfileWrapper(GetApp()), OpponentVisOffset));
+    return OpponentsVisibility(int(GetSpecialUserProfileWrapper(GetApp()).Online_DefaultOpponentVisibility));
+        // Dev::GetOffsetUint32(, OpponentVisOffset));
 }
 
 void SetOpponentsVisibility(OpponentsVisibility v) {
     if (!GameVersionSafe) throw("Call to unsafe dev method");
     trace('setting opponents visibility: ' + tostring(v));
-    Dev::SetOffset(GetSpecialUserProfileWrapper(GetApp()), OpponentVisOffset, uint(v));
+    GetSpecialUserProfileWrapper(GetApp()).Online_DefaultOpponentVisibility = CGameUserProfileWrapper::EPlayerVisibility(int(v));
+    // Dev::SetOffset(GetSpecialUserProfileWrapper(GetApp()), OpponentVisOffset, uint(v));
 }
 
 // Special Interface UI
