@@ -559,7 +559,15 @@ void Render_GameVersionCompatSettings() {
     }
 
     if (UI::Button("Override game version compatibility check")) {
-        GameVersionSafe = true;
+        OverrideGameSafetyCheck_AutoHideOpponents();
     }
     UI::TextWrapped("\\$f80Warning! If the new game version is incompatible, this could crash the game.");
+}
+
+void OverrideGameSafetyCheck_AutoHideOpponents(bool safe = true) {
+    GameVersionSafe = safe;
+}
+
+bool IsGameVersionSafe_AutoHideOpponents() {
+    return GameVersionSafe;
 }
