@@ -10,3 +10,4 @@ min_version = "2023-04-28"
 [script]
 #__DEFINES__
 dependencies = ["VehicleState"]
+module = "AutoHideOpponents"
