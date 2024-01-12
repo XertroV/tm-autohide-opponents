@@ -21,7 +21,7 @@ uint UIVisOffset = 0x3c;
 uint UIVisKeyOffset = 0x1c;
 
 
-// updated 2024-04-28: +0x8 to both.
+// updated 2023-04-28: +0x8 to both.
 uint SpecialUserProfileWrapperOffset = 0x20;
 uint SpecialUserProfileOffset = 0x28;
 
@@ -44,20 +44,20 @@ CGameUserProfile@ GetSpecialUserProfile(CGameCtnApp@ app) {
 }
 
 CGameUserProfileWrapper@ GetSpecialUserProfileWrapper(CGameCtnApp@ app) {
-    try {
-        return cast<CGameManiaPlanet>(GetApp()).ManiaPlanetScriptAPI.UserMgr.Users[0].Config;
-    } catch {}
-    return null;
-    // if (!GameVersionSafe) throw("Call to unsafe dev method");
-    // auto appTy = Reflection::GetType("CTrackMania");
-    // auto rootMapM = appTy.GetMember("RootMap");
-    // // orig 0x3a0
-    // auto off1 = rootMapM.Offset + 0x48;
-    // int[] offsets = {off1, 0, SpecialUserProfileWrapperOffset, OpponentVisOffset};
-    // auto fakeNod1 = Dev::GetOffsetNod(app, offsets[0]);
-    // auto fakeNod2 = Dev::GetOffsetNod(fakeNod1, offsets[1]);
-    // auto nod3 = Dev::GetOffsetNod(fakeNod2, offsets[2]);
-    // return cast<CGameUserProfileWrapper>(nod3);
+    // try {
+    //     return cast<CGameManiaPlanet>(GetApp()).ManiaPlanetScriptAPI.UserMgr.Users[0].Config;
+    // } catch {}
+    // return null;
+    if (!GameVersionSafe) throw("Call to unsafe dev method");
+    auto appTy = Reflection::GetType("CTrackMania");
+    auto rootMapM = appTy.GetMember("RootMap");
+    // orig 0x3a0
+    auto off1 = rootMapM.Offset + 0x48;
+    int[] offsets = {off1, 0, SpecialUserProfileWrapperOffset, OpponentVisOffset};
+    auto fakeNod1 = Dev::GetOffsetNod(app, offsets[0]);
+    auto fakeNod2 = Dev::GetOffsetNod(fakeNod1, offsets[1]);
+    auto nod3 = Dev::GetOffsetNod(fakeNod2, offsets[2]);
+    return cast<CGameUserProfileWrapper>(nod3);
 }
 
 CSmArenaInterfaceUI@ GetSpecialInterfaceUI(CGameCtnApp@ app) {
@@ -92,8 +92,8 @@ void SetSecNameTagsVisibility(bool v) {
 
 OpponentsVisibility GetOpponentsVisibility() {
     if (!GameVersionSafe) throw("Call to unsafe dev method");
-    return OpponentsVisibility(int(GetSpecialUserProfileWrapper(GetApp()).Online_DefaultOpponentVisibility));
-        // Dev::GetOffsetUint32(, OpponentVisOffset));
+    // return OpponentsVisibility(int(GetSpecialUserProfileWrapper(GetApp()).Online_DefaultOpponentVisibility));
+    return OpponentsVisibility(Dev::GetOffsetUint32(GetSpecialUserProfileWrapper(GetApp()), OpponentVisOffset));
 }
 
 void SetOpponentsVisibility(OpponentsVisibility v) {

@@ -1,6 +1,6 @@
 bool GameVersionSafe = false;
 const string[] KnownSafeVersions = {
-        "2023-11-15_11_56"
+        "2023-11-15_11_56", "2024-01-10_12_53"
     };
 string LocalUsersLogin = GetLocalLogin();
 
