@@ -188,6 +188,8 @@ void OnGameModeChange(const string &in mode) {
         g_Mode = GameMode::CotdKo;
     } else if (mode.StartsWith("TM_Teams_Matchmaking_Online")) {
         g_Mode = GameMode::MM;
+    } else if (mode.StartsWith("TM_TMWT")) {
+        g_Mode = GameMode::MM;
     } else if (mode.StartsWith("TM_Cup")) {
         g_Mode = GameMode::Cup;
     } else if (mode.StartsWith("TM_TimeAttack")) {
